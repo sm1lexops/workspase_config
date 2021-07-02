@@ -1,3 +1,5 @@
+#!/bin/bash -ex
+
 sudo dnf update && sudo dnf -y upgrade
 
 sudo dnf -y install yum-utils
