@@ -85,6 +85,14 @@ Clone the repository:
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
+## Auto completion
+
+```sh
+git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+```
+
+## Web Search
+
 Activate the plugin in `~/.zshrc`:
 
     plugins=( [plugins...] zsh-syntax-highlighting)
