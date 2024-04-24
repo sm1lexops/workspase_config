@@ -89,12 +89,27 @@ server {
         modsecurity_rules_file /etc/nginx/modsec/main.conf;
 }
 
+```sh
 sudo wget https://github.com/coreruleset/coreruleset/archive/refs/tags/v$MODSEC_VER.tar.gz
 sudo tar -xzvf v$MODSEC_VER.tar.gz
 sudo mv coreruleset-$MODSEC_VER /usr/local
 cd /usr/local/coreruleset-$MODSEC_VER
 sudo cp crs-setup.conf.example crs-setup.conf
 
+sudo systemctl restart nginx
+```
+* Check that modsecurity rules working
+> curl -H "User-Agent: Nikto" http://localhost/
+
+```html
+<html>
+<head><title>403 Forbidden</title></head>
+<body bgcolor="white">
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx/1.18.0</center>
+</body>
+</html>
+```
 
 ## configure cPGuard for WAF rules
 Step 5: Install Nginx configuration
