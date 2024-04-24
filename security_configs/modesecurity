@@ -54,7 +54,9 @@ sudo make install
 mkdir /usr/local/src/cpg
 cd /usr/local/src/cpg
 # check your nginx -v (version)
-NGINX_VER=$(nginx -v 2>&1 | cut -d'/' -f2 | cut -d' ' -f1)
+export NGINX_VER=$(nginx -v 2>&1 | cut -d'/' -f2 | cut -d' ' -f1)
+# add latest stable version owasp crs modsec
+export MODSEC_VER=4.2.0
 sudo wget http://nginx.org/download/nginx-$NGINX_VER.tar.gz
 sudo tar -xvzf nginx-$NGINX_VER.tar.gz
 # Download the source code for ModSecurity-nginx connector
@@ -70,10 +72,13 @@ cd /etc/nginx/modsec
 sudo wget https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
 sudo mv modsecurity.conf-recommended modsecurity.conf
 sudo sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/nginx/modsec/modsecurity.conf
-sudo cat /etc/nginx/modsec/main.conf
+sudo cp /usr/local/src/ModSecurity/unicode.mapping /etc/nginx/modsec/
 sudo cat <<EOF | sudo tee /etc/nginx/modsec/main.conf
 # Include the recommended configuration
 Include /etc/nginx/modsec/modsecurity.conf
+# OWASP CRS v4 rules
+Include /usr/local/coreruleset-$MODSEC_VER/crs-setup.conf
+Include /usr/local/coreruleset-$MODSEC_VER/rules/*.conf
 # A test rule
 SecRule ARGS:testparam "@contains test" "id:1234,deny,log,status:403"
 EOF
@@ -83,8 +88,7 @@ server {
         modsecurity on;
         modsecurity_rules_file /etc/nginx/modsec/main.conf;
 }
-# add latest stable version owasp crs modsec
-MODSEC_VER=4.2.0
+
 sudo wget https://github.com/coreruleset/coreruleset/archive/refs/tags/v$MODSEC_VER.tar.gz
 sudo tar -xzvf v$MODSEC_VER.tar.gz
 sudo mv coreruleset-$MODSEC_VER /usr/local
