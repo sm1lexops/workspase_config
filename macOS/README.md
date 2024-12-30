@@ -58,7 +58,7 @@ Restart iTerm2 for all changes to take effect.
 
 Things like
 
-- auto suggestions
+- auto suggestions 
 - word jumping with arrow keys / natural text editing
 - syntax highlighting
 - visual studio code config
@@ -70,6 +70,10 @@ can be found in the section below.
 ![Auto suggestions](https://gist.githubusercontent.com/kevin-smets/9722391f8b3e4fa436b1c1dcf05ecd88/raw/fba93f6061a73eaedefad2e8c6266ab4ed90fbbf/autocomplete.png)
 
 Just follow these steps: https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
+
+```sh
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
 
 If the auto suggestions do not appear to show, it could be a problem with your color scheme. Under "iTerm → Preferences → Profiles → Colors tab", check the value of Black Bright, that is the color your auto suggestions will have. It will be displayed on top of the Background color. If there is not enough contrast between the two, you won't see the suggestions even if they're actually there..
 
