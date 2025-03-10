@@ -18,13 +18,12 @@ echo "====Zsh completly installed, next install Oh-My-Zsh plugin===="
 sleep 0.5
 echo "====download Oh-My-Zsh powerlevel10k theme===="
 sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+sudo chmod -R 644 ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k 
+sudo chown -R ${USER}:${USER} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k 
 
 # change ~/.zshrc theme to powerlevel10k
 echo "====changing ZSH_THEME===="
-sed -i -e "/${ZSH_THEME}/powerlevel10k\/powerlevel10k/" ~/.zshrc
+sed -i 's|ZSH_THEME="robbyrussell"|ZSH_THEME="powerlevel10k/powerlevel10k"|' ~/.zshrc
 source ~/.zshrc
 su $USER
 echo "====Installation succesfully, check your Zsh===="
-
-
-
